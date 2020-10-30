@@ -28,7 +28,20 @@ session_start();
 
         // loads in articles
         include __DIR__ . "/articles.php";
-        
+        ?>
+        <section id="users" class="users">
+
+        <?php
+        if(isset($_SESSION['user'])){
+
+            //loads in our user UI
+            include __DIR__ ."/add-news.php" ;
+        }
+        else{
+
+            // else loads in our sign up/in section
+            include __DIR__ . "/join.php";
+        }
 
         // adds our footer
         include __DIR__ . "/footer.php";

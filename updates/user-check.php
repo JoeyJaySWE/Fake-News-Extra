@@ -8,6 +8,8 @@ session_start();
 if($_SERVER['REQUEST_METHOD'] != 'POST'){
     header('location: /index.php');
 }
+
+
 db();
 
 
@@ -23,6 +25,7 @@ db();
 // if so it will add it to database
 if(isset($_POST['new_full_name'])){
 
+    $_POST['new_full_name'] = filter_var($_POST['new_full_name'], FILTER_SANITIZE_STRING);
    
     try{
         
@@ -48,7 +51,7 @@ if(isset($_POST['new_full_name'])){
         header("location: /index.php#errors");
     }
     $_SESSION['error'] = '';
-    header("location: /index.php");
+    header("location: /../#users");
 }
 
 
@@ -92,91 +95,109 @@ if(isset($_POST['dislike'])){
 /*------------ User Credential Checks ----------------------*/
 
 
+if(isset($_POST['password'])){
 
-// encrypts our password through salted md5 + reverse
-$tmp_password=md5($_POST['password']).'j47dl1';
-$tmp_password = strrev($tmp_password);
-$tmp_password = md5($tmp_password);
-$tmp_password = strrev($tmp_password);
-$username = trim($_POST['username']);
-
-
-
-
-// tries to find our user
-try{
-    $find_user = db()->prepare('SELECT username FROM users WHERE username = :username');
-    $find_user->execute(['username'=> $username]);
-}
-catch(PDOException $e){
-    $_SESSION['error'] = handle_sql_errors($update_full_name, $e->getMessage());
-    header("location: /index.php#errors");
-}
-
-$row = $find_user->fetch(PDO::FETCH_ASSOC);
-
-
-
-
-//If match was found check password
-if($row){
+    $_POST['password'] = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
+    $_POST['username'] = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
+    // encrypts our password through salted md5 + reverse
+    $tmp_password=md5($_POST['password']).'j47dl1';
+    $tmp_password = strrev($tmp_password);
+    $tmp_password = md5($tmp_password);
+    $tmp_password = strrev($tmp_password);
+    $username = trim($_POST['username']);
+    
+    
+    
+    
+    // tries to find our user
     try{
-        $password_check = db()->prepare('SELECT * FROM users WHERE password = :password');
-        $password_check->execute(['password'=>$tmpPassword]);
+
+
+        $find_user = db()->prepare('SELECT username FROM users WHERE username = :username');
+        $find_user->execute(['username'=> $username]);
     }
     catch(PDOException $e){
         $_SESSION['error'] = handle_sql_errors($update_full_name, $e->getMessage());
-        header("location: ../index.php#errors");
+        die(var_dump("User password failed"));
+        header("location: /index.php#errors");
     }
-    $row = $password_check->fetch(PDO::FETCH_ASSOC);
-
-
-
-
-    // if password matches, sign user in. Else print out error message
+    
+    $row = $find_user->fetch(PDO::FETCH_ASSOC);
+    
+    
+    
+    
+    //If match was found check password
     if($row){
-        session_start();
-        $_SESSION['user'] = $username;
-        $_SESSION['error'] = '';
-        header('location: /../');
-    }
-    else
-    {
-        $_SESSION['error'] = "Password missmatch!";
-        echo $_SESSION['error'];
-        header('location: ../index.php#errors');
-    }
-} 
 
-
-
-
-// if user wasn't found, try adding it using the the enter username and password
-
-else{
-
-
-                                
-
-
-
-
-    try{
+        try{
+            $password_check = db()->prepare('SELECT * FROM users WHERE password = :password');
+            $password_check->execute(['password'=>$tmp_password]);
+            // die(var_dump($tmp_password));
+        }
+        catch(PDOException $e){
+            $_SESSION['error'] = handle_sql_errors($update_full_name, $e->getMessage());
+            header("location: ../index.php#errors");
+        }
         
-        $create_user = db()->prepare('INSERT INTO users (full_name, username, "password") VALUES
+        
+   
+
+        
+        $match = $password_check->fetchAll();
+        // if password matches, sign user in. Else print out error message
+        if(sizeof($match) !== 0){
+         
+            session_start();
+            $_SESSION['user'] = $username;
+            $_SESSION['error'] = '';
+            header('location: /../#users');
+        }
+        else
+        {
+      
+            $_SESSION['error'] = "Password missmatch!";
+            
+            echo $_SESSION['error'];
+            header('location: ../index.php#errors');
+            die(var_dump("Unkown error, try refreshingt he page."));
+        }
+    } 
+    
+    
+    
+    
+    // if user wasn't found, try adding it using the the enter username and password
+    
+    else{
+
+        
+        
+        
+        
+        
+
+        try{
+            // var_dump($username);
+            // die(var_dump(tmp_));
+            $create_user = db()->prepare('INSERT INTO users (full_name, username, "password") VALUES
                                                         (:full_name, :username, :password)');
         $create_user->execute([
             'full_name'=> 'Link',
             'username'=> $username,
-            'password'=> $tmpPassword
+            'password'=> $tmp_password
             ]);
+            
+        }
 
+        catch(PDOException $e){
+            $_SESSION['error'] = handle_sql_errors($update_full_name, $e->getMessage());
+            header("location: /index.php#errors");
+        }
+        
     }
-    catch(PDOException $e){
-        $_SESSION['error'] = handle_sql_errors($update_full_name, $e->getMessage());
-        header("location: /index.php#errors");
-    }
-
+    $_SESSION['user'] = $username;
+    $_SESSION['error'] = "";
 }
 
 /*-----------------------------------------------------------------------------------*/
