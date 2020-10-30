@@ -88,11 +88,7 @@ In this repository you get a bunch of fun/scary files to look at (depending on c
 
 <h2>Known bugs</h2>
 
-He he he..., WHERE TO BEGIN?!
-<br>
-Actually it ain't that bad. So far there is only one bug that seams to be happening about 50% of the time.
-If you press a like or disslike button, you may need to sign back in to the site. 
-Nothing wrong with the code as far as I can see though, anyone spots the issue or a sulotion, plese fork and send me a merge request!
+None known of as of <time>30-10-2020, 19:36</time>
 <p>
 <img src="http://nya.jjd.joeyjaydigital.com/wp-content/uploads/2018/09/Joey-Jay-digital.svg">
 </p>
