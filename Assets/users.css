@@ -1,0 +1,67 @@
+section.users{
+    display: flex;
+    flex-direction: column;
+    border:2px solid grey;
+    border-radius: 10px;
+    margin: 30px auto 0px auto;
+    width:80%;
+    padding:0px 20px 20px 20px;
+    box-shadow: 2px 1px 5px 0px #000000b8
+}
+
+section.users h2{
+    margin: 20px auto 10px auto;
+}
+
+
+section.users form{
+    margin: 10px auto 10px auto;
+    max-width: 175px;
+}
+section.users form.add_news{
+    max-width:480px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+section.users input[type="text"],
+section.users input[type="password"]{
+    width: 100%;
+    height:34px;
+    font-size:1.1rem;
+    font-family: Times;
+}
+section.users input[type="text"].title{
+    font-size:1.3rem;
+    font-weight:600;
+}
+section.users textarea{
+    height:200px;
+    font-family: Times;
+    font-size:1.05rem;
+}
+
+/* adds multiple transtions as we want both bore-color and background to go smoth */
+section.users input[type="submit"]{
+    height:34px;
+    background-color: #ecffeb;
+    border:2px solid #a6ffa2;
+    border-radius: 10px;
+    transition: background-color 800ms ease-in-out,
+                border-color 800ms ease-in-out;
+}
+section.users input[type="submit"]:hover{
+    cursor:pointer;
+    background-color:#a6ffa2;
+    border-color:#ecffeb;
+}
+
+
+section.users a{
+    margin-top:10px;
+}
+
+
+section.users #errors{
+    margin: auto;
+}

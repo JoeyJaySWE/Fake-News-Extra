@@ -1,0 +1,46 @@
+article{
+    max-width:550px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    padding-left:10px;
+    padding-right:10px;
+    padding-bottom:20px;
+}
+article:hover{
+    box-shadow: 2px 1px 5px 0px #000000b8
+}
+article hr{
+    width: 100%;
+    background-color: #000;
+    height:2px;
+}
+article h3{
+    margin-top:20px;
+    margin-bottom:0px;
+}
+article p{
+    margin-top:15px;
+}
+article footer{
+    display: flex;
+    width:100%;
+    justify-content: space-between;
+    align-items: center;
+}
+article section.votes{
+    display:flex;
+}
+article section.votes button{
+    display: flex;
+    align-items: center;
+    height:41px;
+    width:105px;
+    border-radius: 10px;
+
+}
+/* adds a reversed shadow for our buttons on hover */
+article section.votes button:hover{
+    border: 0px;
+    box-shadow: inset 2px 1px 4px 0px #000000b8;
+}

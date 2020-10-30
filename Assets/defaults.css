@@ -1,0 +1,47 @@
+/* Sets all element to use border-box (why ain't this webstandard yet?) */
+*{
+    box-sizing: border-box;
+}
+/* In order to not blind our visitors, we dim the background slightly from default white
+We also set font size to 16 for cellphone standard */
+body{
+    background-color: #efefef;
+    font-size:16px;
+    padding:60px 20px 60px 20px;
+}
+/* noticed that buttons doesn't use pointers for some reason,
+included it as I expect that behaviour of clickable stuff */
+button:hover{
+    cursor:pointer;
+    
+}
+/* our Wrapper to contain the content and make it easier to read */
+.wrapper{
+    max-width:600px;
+    margin: auto;
+}
+h1{
+    display: flex;
+    justify-content: center;
+}
+h1 img{
+    max-width:300px;
+}
+p, h2{
+    margin:auto;
+    max-width:600px;
+}
+h2{
+    margin-top:40px;
+}
+/* If desktop we switch our font-sze to 18px and add a border to amke the paper design. */
+@media screen and (min-width:900px){
+    body{
+        font-size:18px;
+    }
+    .wrapper{
+        max-width: 850px;
+        padding: 30px 80px 60px 80px;
+        border: 2px solid black;
+    }
+}
