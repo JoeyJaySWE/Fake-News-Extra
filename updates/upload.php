@@ -16,7 +16,7 @@ $data = [
     'title' => $_POST['news_title'],
     'story' => $_POST['news_story'],
     'author' => $_SESSION['user'],
-    'publish_date' => date('d-m-Y') 
+    'publish_date' => $date 
 ];         
 
 $add_story = db()->prepare($query);

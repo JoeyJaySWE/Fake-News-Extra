@@ -25,7 +25,7 @@ $favicon = "img/favicon.png";
 
 
 $news = [];
-$date = date('m-d-Y');
+$date = date('Y-m-d');
 
 
 //-----------------------------------------

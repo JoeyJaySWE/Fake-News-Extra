@@ -187,7 +187,7 @@ if(isset($_POST['password'])){
             'username'=> $username,
             'password'=> $tmp_password
             ]);
-            
+            header("location: /index.php#users");
         }
 
         catch(PDOException $e){

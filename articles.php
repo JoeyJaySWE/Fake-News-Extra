@@ -37,7 +37,7 @@ while ($article = $stmt->fetch()):
 
         <!-- adds our Author and publush date -->
         <em class="athur">
-            Ahtur: 
+            Athur: 
             <strong><?=$article['full_name'];?></strong>
             <time class="date"><?=$article['publish_date'];?></time>
         </em>
